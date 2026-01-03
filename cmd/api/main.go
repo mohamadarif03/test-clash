@@ -15,6 +15,7 @@ func main() {
 	}
 
 	database.Connect()
+	database.Migrate()
 
 	r := router.SetupRouter()
 
