@@ -40,20 +40,20 @@ func Register(input RegisterInput) (*model.User, error) {
 	return user, nil
 }
 
-func Login(input LoginInput) (string, error) {
+func Login(input LoginInput) (*model.User, string, error) {
 	user, err := repository.FindUserByEmail(input.Email)
 	if err != nil {
-		return "", errors.New("invalid email or password")
+		return nil, "", errors.New("email atau password salah")
 	}
 
 	if !utils.CheckPasswordHash(input.Password, user.Password) {
-		return "", errors.New("invalid email or password")
+		return nil, "", errors.New("email atau password salah")
 	}
 
-	token, err := utils.GenerateToken(user.ID)
+	token, err := utils.GenerateToken(user.ID, string(user.Role))
 	if err != nil {
-		return "", err
+		return nil, "", err
 	}
 
-	return token, nil
+	return user, token, nil
 }

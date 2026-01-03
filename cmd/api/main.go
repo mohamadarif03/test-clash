@@ -16,6 +16,7 @@ func main() {
 
 	database.Connect()
 	database.Migrate()
+	database.SeedAdmin()
 
 	r := router.SetupRouter()
 

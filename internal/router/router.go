@@ -9,6 +9,7 @@ import (
 
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
+	r.Use(middleware.CORSMiddleware())
 
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
@@ -27,9 +28,14 @@ func SetupRouter() *gin.Engine {
 		protected := api.Group("/")
 		protected.Use(middleware.AuthMiddleware())
 		{
-			protected.GET("/health", func(c *gin.Context) {
-				c.JSON(200, gin.H{"status": "ok"})
-			})
+			// Admin routes
+			admin := protected.Group("/admin")
+			admin.Use(middleware.AdminMiddleware())
+			{
+				admin.GET("/health", func(c *gin.Context) {
+					c.JSON(200, gin.H{"status": "ok", "role": "admin"})
+				})
+			}
 		}
 	}
 
