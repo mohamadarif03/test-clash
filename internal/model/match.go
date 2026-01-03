@@ -16,7 +16,7 @@ type Match struct {
 	Player2ID *uint64     `json:"player_2_id"`
 	WinnerID  *uint64     `json:"winner_id"`
 	SubtestID uint64      `json:"subtest_id"`
-	Status    MatchStatus `gorm:"type:enum('ongoing', 'finished', 'aborted')" json:"status"`
+	Status    MatchStatus `gorm:"type:varchar(20)" json:"status"`
 	CreatedAt time.Time   `json:"created_at"`
 	Player1   User        `gorm:"foreignKey:Player1ID" json:"player_1"`
 	Player2   *User       `gorm:"foreignKey:Player2ID" json:"player_2"`
@@ -28,8 +28,8 @@ type MatchDetail struct {
 	ID            uint64                 `gorm:"primaryKey;autoIncrement" json:"id"`
 	MatchID       uint64                 `json:"match_id"`
 	QuestionID    uint64                 `json:"question_id"`
-	Player1Answer *QuestionCorrectAnswer `gorm:"type:enum('a', 'b', 'c', 'd', 'e')" json:"player_1_answer"`
-	Player2Answer *QuestionCorrectAnswer `gorm:"type:enum('a', 'b', 'c', 'd', 'e')" json:"player_2_answer"`
+	Player1Answer *QuestionCorrectAnswer `gorm:"type:varchar(5)" json:"player_1_answer"`
+	Player2Answer *QuestionCorrectAnswer `gorm:"type:varchar(5)" json:"player_2_answer"`
 	IsCorrectP1   bool                   `json:"is_correct_p1"`
 	IsCorrectP2   bool                   `json:"is_correct_p2"`
 	Match         Match                  `gorm:"foreignKey:MatchID" json:"match"`

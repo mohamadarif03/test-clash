@@ -47,8 +47,8 @@ type Question struct {
 	OptionC       string                `gorm:"type:text" json:"option_c"`
 	OptionD       string                `gorm:"type:text" json:"option_d"`
 	OptionE       string                `gorm:"type:text" json:"option_e"`
-	CorrectAnswer QuestionCorrectAnswer `gorm:"type:enum('a', 'b', 'c', 'd', 'e')" json:"correct_answer"`
+	CorrectAnswer QuestionCorrectAnswer `gorm:"type:varchar(5)" json:"correct_answer"`
 	Explanation   string                `gorm:"type:text" json:"explanation"`
-	Difficulty    QuestionDifficulty    `gorm:"type:enum('easy', 'medium', 'hard')" json:"difficulty"`
+	Difficulty    QuestionDifficulty    `gorm:"type:varchar(20)" json:"difficulty"`
 	Subtest       Subtest               `gorm:"foreignKey:SubtestID" json:"subtest"`
 }

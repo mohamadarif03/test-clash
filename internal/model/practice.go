@@ -26,7 +26,7 @@ type QuestionReport struct {
 	UserID     uint64       `json:"user_id"`
 	QuestionID uint64       `json:"question_id"`
 	Reason     string       `gorm:"type:text" json:"reason"`
-	Status     ReportStatus `gorm:"type:enum('pending', 'resolved', 'ignored')" json:"status"`
+	Status     ReportStatus `gorm:"type:varchar(20)" json:"status"`
 	User       User         `gorm:"foreignKey:UserID" json:"user"`
 	Question   Question     `gorm:"foreignKey:QuestionID" json:"question"`
 }
